@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- GetSum getsum = new GetSum(); 와 동일 -->
+	<bean id="getsum" class="com.sist.di01.GetSum"/>
+	
+	<bean id="mySum" class="com.sist.di01.MyGetSum">
+		<!-- MyGetSum mySum = new MyGetSum();
+			mySum.setSu1(200);
+			mySum.setSu2(100);
+		 -->
+		<property name="su1" value="200"/>
+		<property name="su2" value="100"/>
+		<property name="getSum">
+			<ref bean="getsum"/>
+		</property>
+	</bean>
+
+</beans>
