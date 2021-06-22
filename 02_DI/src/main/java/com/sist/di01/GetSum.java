@@ -22,7 +22,5 @@ public class GetSum {
 	public void hap(int num1, int num2) {
 		System.out.println("더하기 >> " + (num1 + num2));
 	}
-	
-	
 
 }

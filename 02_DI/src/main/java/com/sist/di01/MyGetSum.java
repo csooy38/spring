@@ -30,5 +30,4 @@ public class MyGetSum {
 		this.getSum.hap(su1, su2);
 	}
 	
-	
 }
