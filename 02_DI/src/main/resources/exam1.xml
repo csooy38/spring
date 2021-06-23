@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="exam1" class="com.sist.di04.Exam">
+		
+		<!-- 생성자를 활용하는 경우 -->
+		<!-- Exam 클래스에 변수가 하나이므로 바로 value 설정 -->
+		<constructor-arg value="안녕하세요. 스프링에 오신 걸 환영합니다."/>
+		
+	</bean>
+
+</beans>

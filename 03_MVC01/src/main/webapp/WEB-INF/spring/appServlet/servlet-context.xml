@@ -21,9 +21,12 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<!-- 모든 애노테이션을 읽어서 자동으로 등록 -->
-	<context:component-scan base-package="com.sist.di01" />
+	<context:component-scan base-package="com.sist.mvc01" />
 	
-	
+	<!-- 
+		<context:component-scan> 태그
+			base-package 속성에 있는 패키지(com.sist.mvc01) 안에 @Controller, @Repository, @Service, @Component 애노테이션이 있는 
+			클래스가 존재하면 해당 클래스를 자동으로 빈으로 등록하라는 의미.
+	 -->
 	
 </beans:beans>

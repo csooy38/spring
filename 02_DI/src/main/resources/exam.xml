@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 
+		<bean>
+			- id 속성 : bean의 고유한 이름. 클래스에서 작성한 변수(참조변수) 이름. 중복불가.
+			- class 속성 : 스프링 컨테이너에서 객체를 생성할 클래스의 위치(패키지명.클래스명).
+		</bean> 
+	-->
+	
+	<!-- 
+		"com.sist.di02" 패키지에 있는 "ExamDAOImlp" 클래스를 "daoImpl"이라는 id를 지정하여 객체(bean)를 생성한다는 의미
+		ExamDAOImlp daoImpl = new ExamDAOImlp();
+	 -->
+	
+	<bean id="daoImpl" class="com.sist.di02.ExamDAOImlp"/>
+
+
+</beans>
