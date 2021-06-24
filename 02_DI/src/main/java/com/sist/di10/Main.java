@@ -1,15 +1,15 @@
 package com.sist.di10;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class Main {
 
 	public static void main(String[] args) {
 
 		// Config 클래스를 컨테이너로 가져온다.
-		AbstractApplicationContext ctx = new AnnotationConfigApplicationContext("classpath:baseball3.xml");
-		
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:baseball3.xml");
+				
 		// Config 클래스의 메서드 이름이 id로 들어간다.
 		Player player1 = (Player) ctx.getBean("player1");
 
