@@ -1,6 +1,14 @@
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
 
+
+*.classpath
+pom.properties
+MANIFEST.MF
+target
+lecture
+
+
 ### Eclipse ###
 .metadata
 bin/
@@ -64,6 +72,9 @@ local.properties
 #.project
 
 ### Eclipse Patch ###
+# Eclipse Core
+.project
+
 # Spring Boot Tooling
 .sts4-cache/
 
