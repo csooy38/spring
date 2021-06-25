@@ -50,7 +50,8 @@ public class EmpDAOImpl implements EmpDAO {
 	}
 
 	@Override
-	public int empInsert(final EmpDTO dto) {	// dto 상수화 (inner로 쓰려면 변화되면 X)
+	public int empInsert(final EmpDTO dto) {	// dto 상수화 
+		// inner 변수가 밖에 있는 변수에 영향을 줄 수 있으므로 변하지 않게 dto final 선언이 필요하다.
 
 		sql = "insert into emp values(?,?,?,?,sysdate,?,?,?)";
 		
@@ -72,20 +73,62 @@ public class EmpDAOImpl implements EmpDAO {
 
 	@Override
 	public EmpDTO empCont(int empno) {
-		// TODO Auto-generated method stub
-		return null;
+
+		sql = "select * from emp where empno = ?";
+		
+		return this.template.queryForObject(sql, new RowMapper<EmpDTO>() {
+
+			@Override
+			public EmpDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				EmpDTO dto = new EmpDTO();
+				dto.setEmpno(rs.getInt("empno"));
+				dto.setEname(rs.getString("ename"));
+				dto.setJob(rs.getString("job"));
+				dto.setMgr(rs.getInt("mgr"));
+				dto.setHiredate(rs.getString("hiredate"));
+				dto.setSal(rs.getDouble("sal"));
+				dto.setComm(rs.getDouble("comm"));
+				dto.setDeptno(rs.getInt("deptno"));
+				return dto;
+			}
+		}, empno);
 	}
 
 	@Override
-	public int empUpdate(int empno) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int empUpdate(final EmpDTO dto) {
+
+		sql = "update emp set job = ?, mgr = ?, sal = ?, comm = ?, deptno = ? where empno = ?";
+		
+		return this.template.update(sql, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, dto.getJob());
+				ps.setInt(2, dto.getMgr());
+				ps.setDouble(3, dto.getSal());
+				ps.setDouble(4, dto.getComm());
+				ps.setInt(5, dto.getDeptno());
+				ps.setInt(6, dto.getEmpno());
+				
+				System.out.println(dto);
+			}
+		});
 	}
 
 	@Override
-	public int empDelete(int empno) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int empDelete(final int empno) {
+
+		sql = "delete from emp where empno = ?";
+		
+		return this.template.update(sql, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				
+				ps.setInt(1, empno);
+				
+			}
+		});
 	}
 
 	@Override

@@ -11,7 +11,7 @@ public interface EmpDAO {
 	List<EmpDTO> getEmpList();	 	// 전체 목록 관련 추상메서드
 	int empInsert(EmpDTO dto); 		// 사원을 등록(추가)하는 추상메서드 
 	EmpDTO empCont(int empno);		// 특정 사원의 정보를 조회하는 추상메서드
-	int empUpdate(int empno);		// 특정 사원의 정보를 수정하는 추상메서드
+	int empUpdate(EmpDTO dto);		// 특정 사원의 정보를 수정하는 추상메서드
 	int empDelete(int empno);		// 특정 사원을 emp 테이블에서 삭제하는 추상메서드
 	List<DeptDTO> getDeptList();	// 부서테이블 전체 리스트 관련 추상메서드
 	List<EmpDTO> getMgrList();		// 관리자만 조회하는 추상메서드
