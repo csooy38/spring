@@ -10,5 +10,6 @@ public interface ProductDAO {
 	int updateProduct(ProductDTO dto);
 	int deleteProduct(int pnum);
 	List<CategoryDTO> categoryList();
+	List<ProductDTO> searchProductList(String field, String keyword);
 
 }

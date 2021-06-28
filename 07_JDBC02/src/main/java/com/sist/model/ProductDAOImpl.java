@@ -117,9 +117,19 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public int deleteProduct(int pnum) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteProduct(final int pnum) {
+		
+		sql = "delete from products where pnum = ?";
+		
+		return this.template.update(sql, new PreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+
+				ps.setInt(1, pnum);
+				
+			}
+		});
 	}
 
 	@Override
@@ -140,6 +150,37 @@ public class ProductDAOImpl implements ProductDAO {
 				return dto;
 			}
 		});
+	}
+
+	@Override
+	public List<ProductDTO> searchProductList(String field, String keyword) {
+		List<ProductDTO> searchList = null;
+		
+		if(field.equals("product_name")) {
+			sql = "select * from products where products_name like ? order by pnum desc";
+		}else if(field.equals("company")) {
+			sql = "select * from products where company like ? order by pnum desc";
+		}
+		
+		return searchList = this.template.query(sql, new RowMapper<ProductDTO>() {
+
+			@Override
+			public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				ProductDTO dto = new ProductDTO();
+				dto.setPnum(rs.getInt("pnum"));
+				dto.setCategory_fk(rs.getString("category_fk"));
+				dto.setProducts_name(rs.getString("products_name"));
+				dto.setEp_code_fk(rs.getString("ep_code_fk"));
+				dto.setInput_price(rs.getInt("input_price"));
+				dto.setOutput_price(rs.getInt("output_price"));
+				dto.setTrans_cost(rs.getInt("trans_cost"));
+				dto.setMileage(rs.getInt("mileage"));
+				dto.setCompany(rs.getString("company"));
+				dto.setStatus(rs.getString("status"));
+				return dto;
+			}
+		}, "%"+keyword+"%");
+		
 	}
 	
 	

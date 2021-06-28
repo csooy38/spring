@@ -64,7 +64,8 @@
 			<tr>
 				<td colspan="2" align="center">
 					<button onclick="location.href='product_modify.do?pnum=${dto.getPnum() }'">제품수정</button>
-					<button onclick="location.href='product_delete.do?pnum=${dto.getPnum() }'">제품삭제</button>
+					<button onclick="if(confirm('삭제 하시겠습니까?')){location.href='product_delete.do?pnum=${dto.getPnum() }'}
+						else {return; }">제품삭제</button>
 					<button onclick="location.href='product_list.do'">제품목록</button>
 				</td>
 			</tr>
