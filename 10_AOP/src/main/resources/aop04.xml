@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<bean id="staff" class="com.sist.aop04.Staff">
+		<property name="name" value="홍길동" />
+		<property name="age" value="27" />
+		<property name="dept" value="경영지원부" />
+	</bean>
+	
+	<bean id="student" class="com.sist.aop04.Student">
+		<property name="name" value="김말동" />
+		<property name="hakbun" value="202110115" />
+		<property name="age" value="20" />
+		<property name="grade" value="1" />
+	</bean>
+	
+	<bean id="advice" class="com.sist.aop04.AdviceLog" />
+	
+	<aop:config>
+		<aop:aspect ref="advice">
+			<aop:pointcut expression="within(com.sist.aop04.*)" id="mypointcut"/>
+			<!-- aop:around : before, after 등 전부 적용 -->
+			<aop:around method="profile" pointcut-ref="mypointcut" />
+		</aop:aspect>
+	</aop:config>
+
+</beans>
