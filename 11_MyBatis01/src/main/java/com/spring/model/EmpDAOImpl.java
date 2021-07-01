@@ -33,25 +33,25 @@ public class EmpDAOImpl implements EmpDAO {
 	@Override
 	public int insertEmp(EmpDTO dto) {
 		
-		return this.sqlSession.insert("add");
+		return this.sqlSession.insert("add", dto);
 	}
 
 	@Override
 	public EmpDTO getCont(int empno) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.sqlSession.selectOne("cont", empno);
 	}
 
 	@Override
 	public int updateEmp(EmpDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		return this.sqlSession.update("modify", dto);
 	}
 
 	@Override
 	public int deleteEmp(int empno) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		return this.sqlSession.delete("delete", empno);
 	}
 
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring.model.ProductDAO">
+
+	<select id="productsList" resultType="com.spring.model.ProductDTO">
+		select * from products order by pnum
+	</select>
+	
+	<!-- ![CDATA[]] : 쿼리문을 작성할 때 조건식 기호(<, >, &)를 사용해야 하는데 XML에서 이런 기호들을 쿼리문의 조건식 기호를 인식하는 것이 아니라 태그로 인식하는 경우가 발생한다. 이런 경우에는 에러가 발생한다. 따라서 이 조건식 기호를 단순한 문자열로 인식시켜주어야 한다. -->
+	<update id="seq" parameterType="int">
+		<![CDATA[
+			update products set pnum = pnum -1 where pnum > #{pnum}
+		]]>
+	</update>
+
+</mapper>

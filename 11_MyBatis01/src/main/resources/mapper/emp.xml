@@ -25,4 +25,21 @@
 		insert into emp values(#{empno}, #{ename}, #{job}, #{mgr}, sysdate, #{sal}, #{comm}, #{deptno})
 	</insert>
 	
+	<select id="cont" parameterType="int" resultType="com.spring.model.EmpDTO">
+		select * from emp where empno = #{empno}
+	</select>
+	
+	<update id="modify" parameterType="com.spring.model.EmpDTO">
+		update emp set job=#{job}, mgr=#{mgr}, sal=#{sal}, comm=#{comm}, deptno=#{deptno} where empno=#{empno}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from emp where empno = #{empno}
+	</delete>
+	
 </mapper>
+
+
+
+
+
