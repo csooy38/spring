@@ -15,5 +15,11 @@
 			update products set pnum = pnum -1 where pnum > #{pnum}
 		]]>
 	</update>
-
+	
+	<insert id="insert" parameterType="com.spring.model.ProductDTO">
+		insert into products values((select count(*) from products) + 1, #{category_fk}, ...)
+		
+		select * from products where products_name like '%' || #{keyword} || '%'
+	</insert>
+	
 </mapper>

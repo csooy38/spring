@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace 명은 패키지 포함해서 인터페이스 이름으로 작성해야 한다. 
+	namespace는 mapper 들을 구분하는 식별자로 매우 중요하다. -->
+	
+<!-- DB 작업을 하다보면 먼저 사전에 어떤 값을 가져와서 증가시켜 입력하거나 혹은 입력 후에 증가된 값을 가져와야 하는 경우가 생긴다.
+	이럴 때 MyBatis에서 제공하는 selectKey 태그를 이용하면 별도의 쿼리 로직을 등록할 필요 없이 일괄 처리 작업을 할 수 있다. 
+	keyProperty 속성은 해당 결과값이 들어갈 DTO 객체의 멤버 변수명이 된다. 
+	order 속성은 해당 쿼리문의 순서를 의미한다. BEFORE 는 insert 쿼리문 이전에 selectKey가 실행, AFTER는 이후에 실행된다. 
+	주의사항 : 반드시 멤버변수에 해당하는 setter()와 getter() 메서드가 존재해야 한다. -->
+
+<mapper namespace="com.spring.model.MemberDAO">
+
+	<select id="memberList" resultType="com.spring.model.MemberDTO">
+		select * from member10 order by num desc
+	</select>
+	
+	<insert id="add" parameterType="com.spring.model.MemberDTO">
+		<selectKey resultType="int" keyProperty="num" order="BEFORE">
+			select count(*)+1 from member10
+		</selectKey>
+		insert into member10 values(#{num}, #{memid}, #{memname}, #{pwd}, #{age}, #{mileage}, #{job}, #{addr}, sysdate)
+	</insert>
+	
+</mapper>
+
+
+
+
+
