@@ -9,4 +9,30 @@
 	<select id="infoList" resultType="hashmap">
 		select * from info
 	</select>
+	
+	<update id="updateInfo" parameterType="hashmap">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			update 
+				info 
+			set
+				name = #{item.name, jdbcType=VARCHAR},
+				regdate = #{item.regdate, jdbcType=DATE},
+				updatedt = sysdate
+			where
+				info_idx = #{item.info_idx, jdbcType=INTEGER}
+		</foreach>
+	</update>
+	
+	<update id="deleteInfo">
+		<foreach collection="list" item="item" open="" close="" separator=";">
+			update 
+				info 
+			set
+				use = 'N',
+				updatedt = sysdate
+			where
+				info_idx = #{item.info_idx, jdbcType=INTEGER}
+		</foreach>
+	</update>
+	
 </mapper>

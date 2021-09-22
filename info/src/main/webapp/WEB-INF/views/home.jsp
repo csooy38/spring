@@ -174,6 +174,10 @@ function createGrid(container) {
   gridView.stateBar.width = 16;
   gridView.editOptions.insertable = true;
   gridView.editOptions.appendable = true;
+  
+  gridView.setOptions({
+	  hideDeletedRows: $("#chkHideDeletedRows").is(":checked")
+	});
 }
 
 function start() {
@@ -231,14 +235,14 @@ function saveData(){
 	
 	console.log("saveData");
 	
-	insertData();
-	updateData();
+	//insertData();
+	//updateData();
 	deleteData();
 }
 
-function insertData(state){
+function updateData(){
 	
-	console.log("insertData");
+	console.log("updateData");
 
  	var rows = null;
 	var rbRowState = document.getElementsByName("rbRowStateArray");
@@ -269,33 +273,139 @@ function insertData(state){
 		console.log("jsonData : ", jsonData);
 		
 		jsonList.push(jsonData);
-		console.log("jsonList: ", jsonList);
+		console.log("jsonList: ", JSON.stringify(jsonList));
 	}
 	
 	$.ajax({
 		url: "${path }/updateInfo",
-		method: "get",
-		success: function(jsonList){
+		type: "post",
+		data: JSON.stringify(jsonList),
+		dataType: "json",
+		contentType:'application/json',
+		success: function(data){
 			info = data;
 			console.log("info:", info);
 			
 			console.log("ajax 성공");
+			
+			fillJsonData();
 		},
 		error: function(request,status,error) {
-			alert("error : ", error);
+			alert("error : ", error, request, status);
 		}
 	});
 }
 
-function updateData(state){
+function insertData(){
 	
-	console.log("updateData");
+	console.log("insertData");
 	
+	var rows = null;
+	var rbRowState = document.getElementsByName("rbRowStateArray");
+	var state;
+	
+	for(var i = 0; i < rbRowState.length; i ++){
+	  if(document.getElementsByName("rbRowStateArray")[i].checked){
+	    state = document.getElementsByName("rbRowStateArray")[i].value
+	  }
+	}
+
+	if (!state || state == "created") {
+		rows = dataProvider.getStateRows("created");
+	  //rows = dataProvider.getAllStateRows(); // RowState.NONE은 포함되지 않는다.
+	} else {
+	  rows = dataProvider.getStateRows(state);
+	}
+	alert(JSON.stringify(rows)); 
+	
+	console.log("rows : ", rows);
+	console.log("rows.length : ", rows.length);
+	
+	var jsonList = [];
+	
+	for(var i=0; i<rows.length; i++){
+		var jsonData = dataProvider.getJsonRow(rows[i]);
+		console.log(JSON.stringify(jsonData));
+		console.log("jsonData : ", jsonData);
+		
+		jsonList.push(jsonData);
+		console.log("jsonList: ", JSON.stringify(jsonList));
+	}
+	
+	$.ajax({
+		url: "${path }/insertInfo",
+		type: "post",
+		data: JSON.stringify(jsonList),
+		dataType: "json",
+		contentType:'application/json',
+		success: function(data){
+			info = data;
+			console.log("info:", info);
+			
+			console.log("ajax 성공");
+			
+			fillJsonData();
+		},
+		error: function(request,status,error) {
+			alert("error : ", error, request, status);
+		}
+	});
 }
 
-function deleteData(state){
+function deleteData(){
 	
 	console.log("deleteData");
+	
+	var rows = null;
+	var rbRowState = document.getElementsByName("rbRowStateArray");
+	var state;
+	
+	for(var i = 0; i < rbRowState.length; i ++){
+	  if(document.getElementsByName("rbRowStateArray")[i].checked){
+	    state = document.getElementsByName("rbRowStateArray")[i].value
+	  }
+	}
+
+	if (!state || state == "updated") {
+		rows = dataProvider.getStateRows("updated");
+	  //rows = dataProvider.getAllStateRows(); // RowState.NONE은 포함되지 않는다.
+	} else {
+	  rows = dataProvider.getStateRows(state);
+	}
+	alert(JSON.stringify(rows)); 
+	
+	console.log("rows : ", rows);
+	console.log("rows.length : ", rows.length);
+	
+	var jsonList = [];
+	
+	for(var i=0; i<rows.length; i++){
+		var jsonData = dataProvider.getJsonRow(rows[i]);
+		console.log(JSON.stringify(jsonData));
+		console.log("jsonData : ", jsonData);
+		
+		jsonList.push(jsonData);
+		console.log("jsonList: ", JSON.stringify(jsonList));
+	}
+	
+	$.ajax({
+		url: "${path }/deleteInfo",
+		type: "post",
+		data: JSON.stringify(jsonList),
+		dataType: "json",
+		contentType:'application/json',
+		success: function(data){
+			info = data;
+			console.log("info:", info);
+			
+			console.log("ajax 성공");
+			
+			fillJsonData();
+		},
+		error: function(request,status,error) {
+			alert("error : ", error, request, status);
+		}
+	});
 	
 }
 

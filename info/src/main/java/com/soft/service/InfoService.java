@@ -8,4 +8,8 @@ public interface InfoService {
 
 	List<Map<String, Object>> selectInfoList();
 
+	int updateInfo(List<Map<String, Object>> jsonList);
+
+	int deleteInfo(List<Map<String, Object>> jsonList);
+
 }

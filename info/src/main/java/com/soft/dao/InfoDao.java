@@ -18,6 +18,14 @@ public class InfoDao {
 	public List<Map<String, Object>> selectInfoList() {
 		return sqlSession.selectList("infoList");
 	}
+
+	public int updateInfo(List<Map<String, Object>> jsonList) {
+		return sqlSession.update("updateInfo", jsonList);
+	}
+
+	public int deleteInfo(List<Map<String, Object>> jsonList) {
+		return sqlSession.update("deleteInfo", jsonList);
+	}
 	
 	
 }

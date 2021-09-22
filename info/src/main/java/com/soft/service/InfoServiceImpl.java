@@ -19,4 +19,14 @@ public class InfoServiceImpl implements InfoService {
 	public List<Map<String, Object>> selectInfoList() {
 		return infoDao.selectInfoList();
 	}
+
+	@Override
+	public int updateInfo(List<Map<String, Object>> jsonList) {
+		return infoDao.updateInfo(jsonList);
+	}
+
+	@Override
+	public int deleteInfo(List<Map<String, Object>> jsonList) {
+		return infoDao.deleteInfo(jsonList);
+	}
 }
