@@ -175,9 +175,17 @@ function createGrid(container) {
   gridView.editOptions.insertable = true;
   gridView.editOptions.appendable = true;
   
-  gridView.setOptions({
-	  hideDeletedRows: $("#chkHideDeletedRows").is(":checked")
+  // 행 삭제 - 실제 삭제가 아니라 삭제라고만 뜨게
+  dataProvider.setOptions({
+	  softDeleting : true
+	  //softDeleting : $("#chkSoftDeleting").is(":checked")
+  });
+  
+  // 행 삭제 가능하게 하는 옵션
+   gridView.setEditOptions({
+	  deletable: true
 	});
+   
 }
 
 function start() {
@@ -366,8 +374,8 @@ function deleteData(){
 	  }
 	}
 
-	if (!state || state == "updated") {
-		rows = dataProvider.getStateRows("updated");
+	if (!state || state == "deleted") {
+		rows = dataProvider.getStateRows("deleted");
 	  //rows = dataProvider.getAllStateRows(); // RowState.NONE은 포함되지 않는다.
 	} else {
 	  rows = dataProvider.getStateRows(state);

@@ -138,6 +138,8 @@ public class InfoController {
 		
 		int result = infoService.deleteInfo(jsonList);
 		
+		System.out.println("result >>> " + result);
+		
 		List<Map<String, Object>> infoList = infoService.selectInfoList();
 		
 		System.out.println("infoList : " + infoList);

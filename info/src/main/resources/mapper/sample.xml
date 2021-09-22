@@ -24,7 +24,7 @@
 	</update>
 	
 	<update id="deleteInfo">
-		<foreach collection="list" item="item" open="" close="" separator=";">
+		<foreach collection="list" item="item" open="" close=";" separator=";">
 			update 
 				info 
 			set
