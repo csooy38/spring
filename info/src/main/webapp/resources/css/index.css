@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+div {
+	width: 600px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+h3, th {
+	text-align: center;
+}
+
+.table {
+	width: 400px;
+	margin: 0 auto;
+}
