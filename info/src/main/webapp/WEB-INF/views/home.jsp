@@ -230,7 +230,7 @@ function getInfo() {
 			
 			info = data;
 			console.log("info:", info);
-			
+			fillJsonData();
 			console.log("ajax 성공");
 		},
 		error: function(request,status,error) {
@@ -243,9 +243,9 @@ function saveData(){
 	
 	console.log("saveData");
 	
-	//insertData();
+	insertData();
 	//updateData();
-	deleteData();
+	//deleteData();
 }
 
 function updateData(){
@@ -291,12 +291,12 @@ function updateData(){
 		dataType: "json",
 		contentType:'application/json',
 		success: function(data){
-			info = data;
-			console.log("info:", info);
-			
-			console.log("ajax 성공");
-			
-			fillJsonData();
+			if(data > 1){
+				console.log("ajax 성공");
+				getInfo();
+			}else {
+				console.log("ajax 통신 실패");
+			}
 		},
 		error: function(request,status,error) {
 			alert("error : ", error, request, status);
@@ -347,12 +347,12 @@ function insertData(){
 		dataType: "json",
 		contentType:'application/json',
 		success: function(data){
-			info = data;
-			console.log("info:", info);
-			
-			console.log("ajax 성공");
-			
-			fillJsonData();
+			if(data > 1){
+				console.log("ajax 성공");
+				getInfo();
+			}else {
+				console.log("ajax 통신 실패");
+			}
 		},
 		error: function(request,status,error) {
 			alert("error : ", error, request, status);
@@ -403,12 +403,12 @@ function deleteData(){
 		dataType: "json",
 		contentType:'application/json',
 		success: function(data){
-			info = data;
-			console.log("info:", info);
-			
-			console.log("ajax 성공");
-			
-			fillJsonData();
+			if(data > 1){
+				console.log("ajax 성공");
+				getInfo();
+			}else {
+				console.log("ajax 통신 실패");
+			}
 		},
 		error: function(request,status,error) {
 			alert("error : ", error, request, status);

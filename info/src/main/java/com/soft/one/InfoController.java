@@ -99,66 +99,45 @@ public class InfoController {
 	
 	@RequestMapping(value="/updateInfo", method=RequestMethod.POST ,  produces="application/json")
 	@ResponseBody
-	public List<Map<String, Object>> updateInfo(@RequestBody List<Map<String, Object>> jsonList){
+	public int updateInfo(@RequestBody List<Map<String, Object>> jsonList){
 		
 		System.out.println("updateInfo 진입1");
-			
 		System.out.println("jsonList >>>>>>>>>>>" + jsonList);
 		
 		int result = infoService.updateInfo(jsonList);
 		
-		List<Map<String, Object>> infoList = infoService.selectInfoList();
+		return result;
+	}
+	
+	@RequestMapping(value="/insertInfo", method=RequestMethod.POST ,  produces="application/json")
+	@ResponseBody
+	public int insertInfo(@RequestBody List<Map<String, Object>> jsonList){
 		
-		System.out.println("infoList : " + infoList);
+		System.out.println("updateInfo 진입1");
+		System.out.println("jsonList >>>>>>>>>>>" + jsonList);
 		
-		System.out.println("getInfo 진입2");		
+		int result = infoService.insertInfo(jsonList);
 		
-		JSONArray jsonArr = new JSONArray();
+		System.out.println("RESULT >>>> " + result);
 		
-		for(int i=0; i<infoList.size(); i++) {
-			JSONObject jsonObj = new JSONObject();
-			Map<String, Object> map = infoList.get(i);
-			Set<Map.Entry<String, Object>> entries = map.entrySet();
-			for(Map.Entry<String, Object> entry : entries) {
-				jsonObj.put(entry.getKey(), entry.getValue());
-			}
-			jsonArr.add(jsonObj);
-		}
-		
-		return jsonArr;
+		return result;
 	}
 	
 	@RequestMapping(value="/deleteInfo", method=RequestMethod.POST ,  produces="application/json")
 	@ResponseBody
-	public List<Map<String, Object>> deleteInfo(@RequestBody List<Map<String, Object>> jsonList){
+	public int deleteInfo(@RequestBody List<Map<String, Object>> jsonList){
 		
 		System.out.println("deleteInfo 진입1");
-			
 		System.out.println("jsonList >>>>>>>>>>>" + jsonList);
 		
-		int result = infoService.deleteInfo(jsonList);
+		int result = 0;
+		
+		result = infoService.deleteInfo(jsonList);
 		
 		System.out.println("result >>> " + result);
 		
-		List<Map<String, Object>> infoList = infoService.selectInfoList();
 		
-		System.out.println("infoList : " + infoList);
-		
-		System.out.println("getInfo 진입2");		
-		
-		JSONArray jsonArr = new JSONArray();
-		
-		for(int i=0; i<infoList.size(); i++) {
-			JSONObject jsonObj = new JSONObject();
-			Map<String, Object> map = infoList.get(i);
-			Set<Map.Entry<String, Object>> entries = map.entrySet();
-			for(Map.Entry<String, Object> entry : entries) {
-				jsonObj.put(entry.getKey(), entry.getValue());
-			}
-			jsonArr.add(jsonObj);
-		}
-		
-		return jsonArr;
+		return result;
 	}
 	
 }

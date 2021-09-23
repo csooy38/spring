@@ -26,6 +26,10 @@ public class InfoDao {
 	public int deleteInfo(List<Map<String, Object>> jsonList) {
 		return sqlSession.update("deleteInfo", jsonList);
 	}
+
+	public int insertInfo(List<Map<String, Object>> jsonList) {
+		return sqlSession.insert("insertInfo", jsonList);
+	}
 	
 	
 }

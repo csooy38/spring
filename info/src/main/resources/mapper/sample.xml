@@ -10,6 +10,19 @@
 		select * from info
 	</select>
 	
+	<insert id="insertInfo" parameterType="hashmap">
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO INFO
+				(
+					INFO_IDX, NAME, REGDATE
+				)
+				VALUES
+				(
+					#{item.INFO_IDX, jdbcType=INTEGER}, #{item.NAME}, SYSDATE
+				)
+		</foreach>
+	</insert>
+	
 	<update id="updateInfo" parameterType="hashmap">
 		<foreach collection="list" item="item" open="" close="" separator=";">
 			update 
@@ -23,8 +36,8 @@
 		</foreach>
 	</update>
 	
-	<update id="deleteInfo">
-		<foreach collection="list" item="item" open="" close=";" separator=";">
+	<update id="deleteInfo" parameterType="hashmap">
+		<foreach collection="jsonList" item="item" open="DECLARE BEGIN" close="; END;" separator=";">
 			update 
 				info 
 			set

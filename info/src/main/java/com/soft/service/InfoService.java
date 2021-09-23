@@ -12,4 +12,6 @@ public interface InfoService {
 
 	int deleteInfo(List<Map<String, Object>> jsonList);
 
+	int insertInfo(List<Map<String, Object>> jsonList);
+
 }
