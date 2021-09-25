@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="sample">
+
+	<select id="infoList" resultType="hashmap">
+		select * from info ORDER BY INFO_IDX
+	</select>
+	
+	<insert id="insertInfo" parameterType="hashmap">
+		<selectKey resultType="string" keyProperty="INFO_IDX" order="BEFORE">
+			SELECT NVL(MAX(INFO_IDX) + 1, 1) FROM INFO
+		</selectKey> 
+		<foreach item="item" index="index" collection="list" open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO INFO(
+				  INFO_IDX
+				, NAME
+				, REGIST
+				, GENDER
+				, REGDATE
+			) VALUES (
+				  #{INFO_IDX, jdbcType=VARCHAR} + To_NUMBER(#{index})
+				, #{item.NAME, jdbcType=VARCHAR}
+				, #{item.REGIST, jdbcType=VARCHAR}
+				, #{item.GENDER, jdbcType=VARCHAR}
+				, SYSDATE
+			)
+		</foreach>
+	</insert>
+	
+	<update id="updateInfo" parameterType="hashmap" >
+		<foreach collection="list" item="item" open="DECLARE BEGIN" close="; END;" separator=";">
+			UPDATE INFO
+			SET 
+				  NAME = #{item.NAME, jdbcType=VARCHAR}
+				, GENDER = #{item.GENDER, jdbcType=VARCHAR}
+				, REGIST = #{item.REGIST, jdbcType=VARCHAR}
+				, REGDATE = TO_DATE(#{item.REGDATE, jdbcType=VARCHAR}, 'YYYY-MM-DD HH24:MI:SS')
+				, UPDDATE = SYSDATE
+			WHERE 
+				INFO_IDX = #{item.INFO_IDX}
+		</foreach>
+	</update>
+	
+	<update id="deleteInfo" parameterType="hashmap" >
+		<foreach collection="list" item="item" open="DECLARE BEGIN" close="; END;" separator=";">
+			UPDATE INFO
+			SET 
+				  NAME = '없음'
+				, UPDDATE = SYSDATE
+			WHERE 
+				INFO_IDX = #{item.INFO_IDX}
+		</foreach>
+	</update>
+</mapper>
