@@ -28,11 +28,11 @@
 			update 
 				info 
 			set
-				name = #{item.name, jdbcType=VARCHAR},
-				regdate = #{item.regdate, jdbcType=DATE},
+				name = #{item.NAME, jdbcType=VARCHAR},
+				regdate = #{item.REGDATE, jdbcType=DATE},
 				updatedt = sysdate
 			where
-				info_idx = #{item.info_idx, jdbcType=INTEGER}
+				info_idx = #{item.INFO_IDX, jdbcType=INTEGER}
 		</foreach>
 	</update>
 	

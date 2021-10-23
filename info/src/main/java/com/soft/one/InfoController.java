@@ -70,6 +70,11 @@ public class InfoController {
 		return "realgrid/test2";
 	}
 	
+	@RequestMapping(value="/pivot")
+	public String pivot() {
+		return "realgrid/pivot";
+	}
+	
 	@RequestMapping(value="/getInfo",  produces="application/json")
 	@ResponseBody
 	public List<Map<String, Object>> getInfo(){
@@ -99,12 +104,14 @@ public class InfoController {
 	
 	@RequestMapping(value="/updateInfo", method=RequestMethod.POST ,  produces="application/json")
 	@ResponseBody
-	public int updateInfo(@RequestBody List<Map<String, Object>> jsonList){
+	public int updateInfo(@RequestBody Map<String, Object> jsonList){
 		
 		System.out.println("updateInfo 진입1");
 		System.out.println("jsonList >>>>>>>>>>>" + jsonList);
 		
-		int result = infoService.updateInfo(jsonList);
+		int result = 1;
+		
+		//result = infoService.updateInfo(jsonList);
 		
 		return result;
 	}
@@ -140,4 +147,35 @@ public class InfoController {
 		return result;
 	}
 	
+	@RequestMapping(value="/getXml",  produces="application/xml")
+	@ResponseBody
+	public List<Map<String, Object>> getXml(){
+		
+		System.out.println("getgetXml 진입1");
+		
+		List<Map<String, Object>> infoList = infoService.selectInfoList();
+		
+		System.out.println("infoList : " + infoList);
+		
+		System.out.println("getgetXml 진입2");		
+		
+		JSONArray jsonArr = new JSONArray();
+		
+		for(int i=0; i<infoList.size(); i++) {
+			JSONObject jsonObj = new JSONObject();
+			Map<String, Object> map = infoList.get(i);
+			Set<Map.Entry<String, Object>> entries = map.entrySet();
+			
+			for(Map.Entry<String, Object> entry : entries) {
+				jsonObj.put(entry.getKey(), entry.getValue());
+				System.out.println(jsonObj);
+			}
+			jsonArr.add(jsonObj);
+			
+			
+			
+		}
+		
+		return jsonArr;
+	}
 }
